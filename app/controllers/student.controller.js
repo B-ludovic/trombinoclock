@@ -1,8 +1,12 @@
 import client from '../db/client.js';
+import dataMapper from '../dataMapper.js';
 
 const studentController = {
-    renderCreateForm(_, res) {
-        res.render('student_create');
+    async renderCreateForm(_, res) {
+        const promos = await dataMapper.getAllPromos();
+        res.render('student_create', {
+            promos: promos
+        });
     },
 
     async createStudent(req, res) {
@@ -21,13 +25,15 @@ const studentController = {
             await client.query(query, values);
             
             res.redirect('/?success=Étudiant créé avec succès');
-    } catch (error) {
-      console.error('Erreur lors de la création de l\'étudiant:', error);
-      res.status(500).render('createStudent', {
-        error: 'Une erreur est survenue lors de la création de l\'étudiant'
-      });
+        } catch (error) {
+            console.error('Erreur lors de la création de l\'étudiant:', error);
+            const promos = await dataMapper.getAllPromos();
+            res.status(500).render('student_create', {
+                promos: promos,
+                error: 'Une erreur est survenue lors de la création de l\'étudiant'
+            });
+        }
     }
-  }
 };
 
 export default studentController;

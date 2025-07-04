@@ -1,6 +1,7 @@
 import express from "express";
 import mainController from "./controllers/main.controller.js";
 import promoController from "./controllers/promo.controller.js";
+import studentController from "./controllers/student.controller.js";
 
 const router = express.Router();
 
@@ -11,6 +12,8 @@ router.get("/", mainController.homepage);
 router.get("/promos", promoController.listPage);
 router.get("/promos/create", promoController.createPage);
 router.post("/promos/create", promoController.createPromoAction);
+router.get("/admin/createStudent", studentController.renderCreateForm);
+router.post("/admin/createStudent", studentController.createStudent);
 router.get("/promos/:id", promoController.detailPage);
 router.get("/promos/:id/students", promoController.studentsPage);
 
