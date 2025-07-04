@@ -1,0 +1,13 @@
+<%- include('./partials/header') %>
+
+<!-- Si je veux visualiser dans le navigateur le contenu de ma variable -->
+<!-- On peut faire un `JSON.stringify` -->
+<!-- <%= JSON.stringify(promos, null, 2) %> -->
+<h1>Liste des promos</h1>
+<ul class="cards">
+  <% promos.forEach(promo => { %>
+    <li class="card card--label"><a href="/promos/<%= promo.id %>"><%= promo.name %></a></li>
+  <% }) %>
+</ul>
+
+<%- include('./partials/footer') %>
