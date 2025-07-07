@@ -1,0 +1,105 @@
+<%- include('partials/header') %>
+
+<div class="container">
+    <h1>Recherche de promotions</h1>
+    
+    <!-- Formulaire de recherche -->
+    <div class="search-form">
+        <form method="GET" action="/search">
+            <div class="search-input-group">
+                <input 
+                    type="text" 
+                    name="q" 
+                    placeholder="Rechercher par nom de promo ou nom d'étudiant..." 
+                    value="<%= searchTerm %>"
+                    class="search-input"
+                >
+                <button type="submit" class="search-btn">Rechercher</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Résultats de recherche -->
+    <div class="search-results">
+        <% if (searchPerformed) { %>
+            <h2>Résultats pour "<%= searchTerm %>"</h2>
+            
+            <!-- Résultats des promotions -->
+            <% if (promos && promos.length > 0) { %>
+                <div class="results-section">
+                    <h3>Promotions trouvées</h3>
+                    <p class="results-count"><%= promos.length %> promotion(s) trouvée(s)</p>
+                    
+                    <div class="promos-grid">
+                        <% promos.forEach(promo => { %>
+                            <div class="promo-card">
+                                <h3><a href="/promos/<%= promo.id %>"><%= promo.name %></a></h3>
+                                <p><strong>ID:</strong> <%= promo.id %></p>
+                                <% if (promo.github_organization) { %>
+                                    <p><strong>GitHub:</strong> <a href="<%= promo.github_organization %>" target="_blank">Voir l'organisation</a></p>
+                                <% } %>
+                                <div class="promo-actions">
+                                    <a href="/promos/<%= promo.id %>" class="btn btn-primary">Voir la promo</a>
+                                    <a href="/promos/<%= promo.id %>/students" class="btn btn-secondary">Voir les étudiants</a>
+                                </div>
+                            </div>
+                        <% }) %>
+                    </div>
+                </div>
+            <% } %>
+            
+            <!-- Résultats des étudiants -->
+            <% if (students && students.length > 0) { %>
+                <div class="results-section">
+                    <h3>Étudiants trouvés</h3>
+                    <p class="results-count"><%= students.length %> étudiant(s) trouvé(s)</p>
+                    
+                    <div class="students-grid">
+                        <% students.forEach(student => { %>
+                            <div class="student-card">
+                                <% if (student.profile_picture_url) { %>
+                                    <img src="<%= student.profile_picture_url %>" alt="<%= student.first_name %> <%= student.last_name %>" class="student-avatar">
+                                <% } %>
+                                <div class="student-info">
+                                    <h4><%= student.first_name %> <%= student.last_name %></h4>
+                                    <% if (student.github_username) { %>
+                                        <p><strong>GitHub:</strong> <a href="https://github.com/<%= student.github_username %>" target="_blank">@<%= student.github_username %></a></p>
+                                    <% } %>
+                                    <% if (student.promo_id) { %>
+                                        <p><strong>Promotion:</strong> <a href="/promos/<%= student.promo_id %>">Voir la promo</a></p>
+                                    <% } %>
+                                </div>
+                            </div>
+                        <% }) %>
+                    </div>
+                </div>
+            <% } %>
+            
+            <!-- Aucun résultat -->
+            <% if ((!promos || promos.length === 0) && (!students || students.length === 0)) { %>
+                <div class="no-results">
+                    <p>Aucun résultat trouvé pour "<%= searchTerm %>"</p>
+                    <p>Essayez avec d'autres termes de recherche.</p>
+                </div>
+            <% } %>
+        <% } else { %>
+            <div class="search-help">
+                <h2>Comment rechercher ?</h2>
+                <ul>
+                    <li><strong>Par nom de promo :</strong> tapez "Berlin", "Athens", "Zeus", etc.</li>
+                    <li><strong>Par nom d'étudiant :</strong> tapez le prénom ou nom d'un étudiant</li>
+                    <li><strong>Recherche partielle :</strong> vous pouvez taper juste une partie du nom</li>
+                    <li><strong>Par pseudo GitHub :</strong> recherchez par nom d'utilisateur GitHub</li>
+                </ul>
+            </div>
+        <% } %>
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation">
+        <a href="/promos" class="btn">← Retour aux promotions</a>
+        <a href="/" class="btn">🏠 Accueil</a>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

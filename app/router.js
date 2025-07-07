@@ -9,11 +9,12 @@ const router = express.Router();
 // Quand une requête arrive (par exemple un navigateur qui va sur l'url `/promos`)
 // Il va regarder si l'url correspond à une route définie dans le router
 router.get("/", mainController.homepage);
+router.get("/search", mainController.searchPage);
 router.get("/promos", promoController.listPage);
 router.get("/promos/create", promoController.createPage);
 router.post("/promos/create", promoController.createPromoAction);
 router.get("/admin/createStudent", studentController.renderCreateForm);
-router.post("/admin/createStudent", studentController.createStudent);
+router.post("/admin/createStudent", studentController.createStudentAction);
 router.get("/promos/:id", promoController.detailPage);
 router.get("/promos/:id/students", promoController.studentsPage);
 

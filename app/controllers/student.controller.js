@@ -1,4 +1,3 @@
-import client from '../db/client.js';
 import dataMapper from '../dataMapper.js';
 
 const studentController = {
@@ -9,22 +8,28 @@ const studentController = {
         });
     },
 
-    async createStudent(req, res) {
+    async createStudentAction(req, res) {
         try {
-            const { first_name, last_name, github_username, profile_picture_url, promo_id } = req.body;
-            if (!first_name || !last_name || !github_username || !profile_picture_url || !promo_id) {
-                res.status(400).send('Tous les champs sont requis');
-                return;
-            }
-            const query = `
-                INSERT INTO students (first_name, last_name, github_username, profile_picture_url, promo_id)
-                VALUES ($1, $2, $3, $4, $5)
-                RETURNING *;
-            `;
-            const values = [first_name, last_name, github_username, profile_picture_url, promo_id || null];
-            await client.query(query, values);
+            // Je récupère les données envoyées par le formulaire
+            console.log("req.body", req.body);
+            const studentInfoToInsert = req.body;
             
-            res.redirect('/?success=Étudiant créé avec succès');
+            // Validation basique des champs requis
+            if (!studentInfoToInsert.first_name || !studentInfoToInsert.last_name || 
+                !studentInfoToInsert.github_username || !studentInfoToInsert.profile_picture_url || 
+                !studentInfoToInsert.promo_id) {
+                const promos = await dataMapper.getAllPromos();
+                return res.status(400).render('student_create', {
+                    promos: promos,
+                    error: 'Tous les champs sont requis'
+                });
+            }
+
+            // On appelle le dataMapper pour insérer l'étudiant dans la base de données
+            await dataMapper.createStudent(studentInfoToInsert);
+
+            // On redirige l'utilisateur vers la page de détails de la promotion sélectionnée
+            res.redirect(`/promos/${studentInfoToInsert.promo_id}`);
         } catch (error) {
             console.error('Erreur lors de la création de l\'étudiant:', error);
             const promos = await dataMapper.getAllPromos();

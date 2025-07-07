@@ -14,7 +14,6 @@ const dataMapper = {
       // $1 va être remplacé par la 1ère valeur du tableau `values`
       // $2 va être remplacé par la 2ème valeur du tableau `values`
       // $3 va être remplacé par la 3ème valeur du tableau `values`
-      // etc...
       text: "SELECT * FROM promo WHERE id = $1;",
       values: [id],
     });
@@ -38,6 +37,41 @@ const dataMapper = {
       `,
       values: [promoData.name, promoData.github_organization],
     });
+  },
+  async createStudent(studentInfo) {
+    await client.query({
+      text: `
+        INSERT INTO student (first_name, last_name, github_username, profile_picture_url, promo_id)
+        VALUES ($1, $2, $3, $4, $5);
+      `,
+      values: [
+        studentInfo.first_name,
+        studentInfo.last_name,
+        studentInfo.github_username,
+        studentInfo.profile_picture_url,
+        studentInfo.promo_id
+      ],
+    });
+  },
+  async searchPromosByName(searchTerm) {
+    const result = await client.query({
+      text: "SELECT * FROM promo WHERE name ILIKE $1 ORDER BY name;",
+      values: [`%${searchTerm}%`],
+    });
+    return result.rows;
+  },
+  async searchStudentsByName(searchTerm) {
+    const result = await client.query({
+      text: `
+        SELECT * FROM student 
+        WHERE first_name ILIKE $1 
+           OR last_name ILIKE $1 
+           OR github_username ILIKE $1 
+        ORDER BY last_name, first_name;
+      `,
+      values: [`%${searchTerm}%`],
+    });
+    return result.rows;
   },
 };
 
