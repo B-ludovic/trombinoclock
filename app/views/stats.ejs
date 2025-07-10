@@ -1,0 +1,101 @@
+<%- include('./partials/header') %>
+
+<div class="container">
+    <h1>📊 Statistiques générales</h1>
+    
+    <!-- Statistiques globales -->
+    <div class="stats-overview">
+        <div class="stat-card">
+            <div class="stat-number"><%= globalStats.total_promos %></div>
+            <div class="stat-label">Promotions</div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-number"><%= globalStats.total_students %></div>
+            <div class="stat-label">Étudiants</div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-number"><%= globalStats.students_with_avatar %></div>
+            <div class="stat-label">Avatars</div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-number"><%= globalStats.students_with_github %></div>
+            <div class="stat-label">Profils GitHub</div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-number"><%= globalStats.empty_promos %></div>
+            <div class="stat-label">Promos vides</div>
+        </div>
+    </div>
+
+    <!-- Tableau des statistiques par promo -->
+    <div class="stats-table-container">
+        <h2>Statistiques par promotion</h2>
+        
+        <table class="stats-table">
+            <thead>
+                <tr>
+                    <th>Promotion</th>
+                    <th>Nombre d'étudiants</th>
+                    <th>GitHub Organization</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% promoStats.forEach(promo => { %>
+                    <tr class="<%= promo.student_count == 0 ? 'empty-promo' : '' %>">
+                        <td>
+                            <a href="/promos/<%= promo.id %>" class="promo-link">
+                                <%= promo.name %>
+                            </a>
+                        </td>
+                        <td>
+                            <span class="student-count <%= promo.student_count == 0 ? 'zero' : '' %>">
+                                <%= promo.student_count %>
+                            </span>
+                        </td>
+                        <td>
+                            <% if (promo.github_organization) { %>
+                                <a href="<%= promo.github_organization %>" target="_blank" class="github-link">
+                                    📂 Voir l'organisation
+                                </a>
+                            <% } else { %>
+                                <span class="no-github">Aucune</span>
+                            <% } %>
+                        </td>
+                        <td>
+                            <a href="/stats/promo/<%= promo.id %>" class="btn btn-sm btn-primary">
+                                📈 Détails
+                            </a>
+                            <a href="/promos/<%= promo.id %>" class="btn btn-sm btn-secondary">
+                                👥 Voir la promo
+                            </a>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Graphique simple avec du CSS -->
+    <div class="chart-container">
+        <h2>Répartition des étudiants</h2>
+        <div class="simple-chart">
+            <% promoStats.slice(0, 10).forEach(promo => { %>
+                <% if (promo.student_count > 0) { %>
+                    <div class="chart-bar">
+                        <div class="bar-label"><%= promo.name %></div>
+                        <div class="bar" style="width: <%= (promo.student_count / Math.max(...promoStats.map(p => p.student_count))) * 100 %>%">
+                            <span class="bar-value"><%= promo.student_count %></span>
+                        </div>
+                    </div>
+                <% } %>
+            <% }) %>
+        </div>
+    </div>
+</div>
+
+<%- include('./partials/footer') %>

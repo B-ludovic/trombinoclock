@@ -16,8 +16,7 @@ const studentController = {
             
             // Validation basique des champs requis
             if (!studentInfoToInsert.first_name || !studentInfoToInsert.last_name || 
-                !studentInfoToInsert.github_username || !studentInfoToInsert.profile_picture_url || 
-                !studentInfoToInsert.promo_id) {
+                !studentInfoToInsert.github_username ||!studentInfoToInsert.promo_id) {
                 const promos = await dataMapper.getAllPromos();
                 return res.status(400).render('student_create', {
                     promos: promos,

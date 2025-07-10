@@ -703,6 +703,389 @@ h2 {
     text-decoration: underline;
 }
 
+/* Styles pour les statistiques */
+
+/* Breadcrumb */
+.breadcrumb {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: var(--secondary-color);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+}
+
+.breadcrumb a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb span {
+    color: var(--text-secondary);
+    margin: 0 0.5rem;
+}
+
+/* Statistiques - Vue d'ensemble */
+.stats-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, var(--white) 0%, var(--secondary-color) 100%);
+    border-radius: var(--radius);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+}
+
+/* Tableau des statistiques */
+.stats-table-container {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: var(--shadow-md);
+}
+
+.stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.stats-table th {
+    background: var(--primary-color);
+    color: var(--white);
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    border: none;
+}
+
+.stats-table th:first-child {
+    border-radius: var(--radius-sm) 0 0 0;
+}
+
+.stats-table th:last-child {
+    border-radius: 0 var(--radius-sm) 0 0;
+}
+
+.stats-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.stats-table tr:hover {
+    background: var(--secondary-color);
+}
+
+.stats-table tr.empty-promo {
+    background: #fef3cd;
+}
+
+.stats-table tr.empty-promo:hover {
+    background: #fdeaa3;
+}
+
+.promo-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.promo-link:hover {
+    text-decoration: underline;
+}
+
+.student-count {
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    background: var(--accent-color);
+    color: var(--white);
+}
+
+.student-count.zero {
+    background: #dc2626;
+}
+
+.github-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.github-link:hover {
+    color: var(--primary-color);
+}
+
+.no-github {
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* Graphique simple */
+.chart-container {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: var(--shadow-md);
+}
+
+.simple-chart {
+    margin-top: 1rem;
+}
+
+.chart-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.bar-label {
+    width: 120px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.bar {
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+    height: 30px;
+    border-radius: var(--radius-sm);
+    min-width: 20px;
+    display: flex;
+    align-items: center;
+    padding: 0 0.5rem;
+    margin-left: 1rem;
+    transition: width 0.5s ease;
+}
+
+.bar-value {
+    color: var(--white);
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+/* Boutons petits */
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+}
+
+/* Page de statistiques détaillées */
+.promo-info {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: var(--shadow-md);
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.info-item {
+    padding: 0.75rem;
+    background: var(--secondary-color);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+}
+
+.students-section {
+    margin: 2rem 0;
+}
+
+.students-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.student-card-detailed {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    gap: 1rem;
+}
+
+.student-card-detailed:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.student-avatar-large {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border-color);
+}
+
+.student-avatar-placeholder {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.student-details {
+    flex: 1;
+}
+
+.student-details h3 {
+    margin: 0 0 1rem 0;
+    color: var(--text-primary);
+    font-size: 1.25rem;
+}
+
+.student-meta {
+    margin-bottom: 1rem;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.meta-item.missing {
+    opacity: 0.6;
+}
+
+.meta-label {
+    font-weight: 500;
+    color: var(--text-secondary);
+    width: 80px;
+    font-size: 0.875rem;
+}
+
+.github-username {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.github-username:hover {
+    text-decoration: underline;
+}
+
+.missing-info {
+    color: #dc2626;
+    font-style: italic;
+    font-size: 0.875rem;
+}
+
+.completion-status {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.completion-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.completion-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-color), var(--primary-color));
+    transition: width 0.3s ease;
+}
+
+.completion-text {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.empty-promo {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: var(--secondary-color);
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color);
+    margin: 2rem 0;
+}
+
+.empty-promo h2 {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.empty-promo p {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+.actions-section {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 3rem 0 2rem 0;
+    flex-wrap: wrap;
+}
+
+.btn-accent {
+    background: linear-gradient(135deg, var(--accent-color), #059669);
+    color: var(--white);
+    border: 2px solid transparent;
+}
+
+.btn-accent:hover {
+    background: linear-gradient(135deg, #059669, var(--accent-color));
+    transform: translateY(-1px);
+}
+
 /* Responsive design amélioré */
 @media (max-width: 768px) {
     header, main, footer {
@@ -762,6 +1145,52 @@ h2 {
     .navigation {
         flex-direction: column;
         align-items: center;
+    }
+    
+    .stats-overview {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .chart-bar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .bar {
+        width: 100% !important;
+        margin-left: 0;
+        margin-top: 0.5rem;
+    }
+    
+    .stats-table {
+        font-size: 0.9rem;
+    }
+    
+    .stats-table th,
+    .stats-table td {
+        padding: 0.5rem;
+    }
+    
+    .students-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .student-card-detailed {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .completion-status {
+        justify-content: center;
+    }
+    
+    .actions-section {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
     }
 }
 

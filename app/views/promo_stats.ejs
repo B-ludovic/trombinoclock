@@ -1,0 +1,138 @@
+<%- include('./partials/header') %>
+
+<div class="container">
+    <nav class="breadcrumb">
+        <a href="/stats">📊 Statistiques</a> 
+        <span>›</span>
+        <span><%= promo.name %></span>
+    </nav>
+
+    <h1>📈 Statistiques détaillées - <%= promo.name %></h1>
+    
+    <!-- Statistiques de la promo -->
+    <div class="stats-overview">
+        <div class="stat-card">
+            <div class="stat-number"><%= promo.student_count %></div>
+            <div class="stat-label">Étudiants</div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-number"><%= promo.students_with_avatar %></div>
+            <div class="stat-label">Avec Avatar</div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-number"><%= promo.students_with_github %></div>
+            <div class="stat-label">Profils GitHub</div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-number">
+                <%= promo.student_count > 0 ? Math.round((promo.students_with_avatar / promo.student_count) * 100) : 0 %>%
+            </div>
+            <div class="stat-label">Profils Complets</div>
+        </div>
+    </div>
+
+    <!-- Informations de la promo -->
+    <div class="promo-info">
+        <h2>Informations de la promotion</h2>
+        <div class="info-grid">
+            <div class="info-item">
+                <strong>Nom :</strong> <%= promo.name %>
+            </div>
+            <div class="info-item">
+                <strong>ID :</strong> <%= promo.id %>
+            </div>
+            <% if (promo.github_organization) { %>
+                <div class="info-item">
+                    <strong>Organisation GitHub :</strong> 
+                    <a href="<%= promo.github_organization %>" target="_blank" class="github-link">
+                        📂 Voir l'organisation
+                    </a>
+                </div>
+            <% } %>
+        </div>
+    </div>
+
+    <!-- Liste des étudiants -->
+    <% if (students.length > 0) { %>
+        <div class="students-section">
+            <h2>Liste des étudiants (<%= students.length %>)</h2>
+            
+            <div class="students-grid">
+                <% students.forEach(student => { %>
+                    <div class="student-card-detailed">
+                        <% if (student.profile_picture_url) { %>
+                            <img src="<%= student.profile_picture_url %>" 
+                                 alt="<%= student.first_name %> <%= student.last_name %>" 
+                                 class="student-avatar-large">
+                        <% } else { %>
+                            <div class="student-avatar-placeholder">
+                                <%= student.first_name.charAt(0) %><%= student.last_name.charAt(0) %>
+                            </div>
+                        <% } %>
+                        
+                        <div class="student-details">
+                            <h3><%= student.first_name %> <%= student.last_name %></h3>
+                            
+                            <div class="student-meta">
+                                <% if (student.github_username) { %>
+                                    <div class="meta-item">
+                                        <span class="meta-label">GitHub :</span>
+                                        <a href="https://github.com/<%= student.github_username %>" 
+                                           target="_blank" class="github-username">
+                                            @<%= student.github_username %>
+                                        </a>
+                                    </div>
+                                <% } else { %>
+                                    <div class="meta-item missing">
+                                        <span class="meta-label">GitHub :</span>
+                                        <span class="missing-info">Non renseigné</span>
+                                    </div>
+                                <% } %>
+                                
+                                <div class="meta-item">
+                                    <span class="meta-label">ID :</span>
+                                    <span><%= student.id %></span>
+                                </div>
+                            </div>
+                            
+                            <div class="completion-status">
+                                <% 
+                                const completionPercentage = (
+                                    (student.profile_picture_url ? 1 : 0) + 
+                                    (student.github_username ? 1 : 0)
+                                ) / 2 * 100;
+                                %>
+                                <div class="completion-bar">
+                                    <div class="completion-fill" style="width: <%= completionPercentage %>%"></div>
+                                </div>
+                                <span class="completion-text"><%= Math.round(completionPercentage) %>% complet</span>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    <% } else { %>
+        <div class="empty-promo">
+            <h2>Aucun étudiant</h2>
+            <p>Cette promotion ne contient encore aucun étudiant.</p>
+            <a href="/admin/createStudent" class="btn btn-primary">
+                ➕ Ajouter un étudiant
+            </a>
+        </div>
+    <% } %>
+
+    <!-- Actions -->
+    <div class="actions-section">
+        <a href="/stats" class="btn btn-secondary">← Retour aux statistiques</a>
+        <a href="/promos/<%= promo.id %>" class="btn btn-primary">👥 Voir la promo</a>
+        <% if (students.length === 0) { %>
+            <a href="/admin/createStudent" class="btn btn-accent">➕ Ajouter un étudiant</a>
+        <% } %>
+    </div>
+</div>
+
+<%- include('./partials/footer') %>
