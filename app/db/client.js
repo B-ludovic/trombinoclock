@@ -3,13 +3,27 @@ import { Client } from "pg";
 // Format de l'url de connexion `postgres://username:password@host:port/database`
 const client = new Client(process.env.PG_URL);
 
-// Connexion avec gestion d'erreur
-try {
-    await client.connect();
-    console.log('✅ Connexion à PostgreSQL réussie');
-} catch (error) {
-    console.error('❌ Erreur de connexion à PostgreSQL:', error.message);
-    console.error('💡 Vérifiez que Postgres.app est démarré et que les permissions sont correctes');
-}
+let isConnected = false;
 
-export default client;
+// Fonction pour s'assurer que la connexion est établie
+const ensureConnection = async () => {
+  if (!isConnected) {
+    try {
+      await client.connect();
+      isConnected = true;
+      console.log("✅ Connexion à PostgreSQL réussie");
+    } catch (error) {
+      console.error("❌ Erreur de connexion à PostgreSQL:", error.message);
+      throw error;
+    }
+  }
+};
+
+// Wrapper pour les requêtes qui assure la connexion
+const query = async (...args) => {
+  await ensureConnection();
+  return client.query(...args);
+};
+
+// Export du client avec la méthode query wrappée
+export default { query };
