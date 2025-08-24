@@ -115,18 +115,23 @@ DB_PASSWORD=your_password
 ## 📱 Captures d'écran
 
 ### Page d'accueil avec statistiques
+
 ![Page d'accueil](./screenshot/Capture%20d'écran%202025-08-25%20à%2000.40.36.png)
 
 ### Liste des promotions
+
 ![Liste des promotions](./screenshot/Capture%20d'écran%202025-08-25%20à%2000.40.45.png)
 
 ### Détails d'une promotion
+
 ![Détails promotion](./screenshot/Capture%20d'écran%202025-08-25%20à%2000.40.52.png)
 
 ### Interface de gestion des étudiants
+
 ![Gestion étudiants](./screenshot/Capture%20d'écran%202025-08-25%20à%2000.40.58.png)
 
 ### Fonctionnalités de recherche
+
 ![Recherche](./screenshot/Capture%20d'écran%202025-08-25%20à%2000.41.16.png)
 
 ## 🔧 Scripts disponibles
@@ -166,4 +171,4 @@ Les contributions sont les bienvenues ! N'hésitez pas à :
 4. Push vers la branche (`git push origin feature/AmazingFeature`)
 5. Ouvrir une Pull Request
 
-_Développé dans le cadre de la formation O'Clock - Spécialisation Backend_
+Développé dans le cadre de la formation O'Clock - Spécialisation Backend
